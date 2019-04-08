@@ -5,6 +5,7 @@ import CarList from './parkingcar/CarList'
 import MotorcycleList from './parkingmotorcycle/MotorcycleList'
 import Wrap from './parking/Wrap'
 import VehicleParking from './parking/VehicleParking'
+import {  CardDeck } from 'reactstrap';
 
 
 class App extends Component {
@@ -17,8 +18,11 @@ class App extends Component {
     return (
         <div>
           <TRMView />
-          <CarList />
-          <MotorcycleList />
+          <CardDeck>
+            <CarList />
+            <MotorcycleList />
+          </CardDeck>
+
           <Wrap />
           <VehicleParking />
         </div>

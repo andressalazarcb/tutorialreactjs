@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import * as Constant from '../Constant'
+import * as Constant from '../Constant';
+import { Button, Input, Label, Form } from 'reactstrap';
 
 class VehicleFind extends Component {
 
@@ -19,23 +20,19 @@ class VehicleFind extends Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <label>
-          Name:
-          <input name="plate" type="text" onChange={this.handleChange} />
-        </label>
-        <label>
-          Pick your vehicle type:
-          <select name="vehicleType" onChange={this.handleChange}>
+      <Form onSubmit={this.handleSubmit}>
+        <Label for="plate">Plate:</Label>
+        <Input name="plate" id="plate" onChange={this.handleChange} placeholder="Insert a plate" />
+        <Label for="vehicleType">Vehicle Type:</Label>
+        <Input type="select" name="vehicleType" id="vehicleType">
           {Constant.TYPES.map(item => (
             <option key={item}>
               {item}
             </option>
           ))}
-          </select>
-        </label>
-        <input type="submit" value="Submit" />
-      </form>
+        </Input>
+        <Button>Submit</Button>
+      </Form>
     );
   }
 

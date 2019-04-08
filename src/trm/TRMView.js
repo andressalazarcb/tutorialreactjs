@@ -16,7 +16,7 @@ class TRMView extends Component {
   render() {
     return (
       <div>
-        <div>La TRM de Hoy es: $ {this.state.trm} COP</div>
+        <p className="text-info">La TRM de Hoy es: $ {this.state.trm} COP</p>
       </div>);
   }
 

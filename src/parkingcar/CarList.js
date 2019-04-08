@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import * as Constant from '../Constant'
+import * as Constant from '../Constant';
+import { Table, Card, Button, CardHeader, CardFooter, CardBody,
+  CardTitle, CardText } from 'reactstrap';
 
 class CarList extends Component {
 
@@ -15,25 +17,30 @@ class CarList extends Component {
 
   render() {
     return (
-      <div>
-        <div>
-        <table width="100%">
-            <thead>
-              <tr>
-                <th>CarId</th>
-              </tr>
-            </thead>
-            <tbody>
-            {this.state.cars.map(item => (
-              <tr key={item.plate}>
-                <td>{item.plate}</td>
-              </tr>
-            ))}
-            </tbody>
-        </table>
 
-          </div>
-      </div>);
+      <Card>
+        <CardHeader tag="h3">Cars that are parking</CardHeader>
+        <CardBody>
+          <Table striped>
+              <thead>
+                <tr>
+                  <th>CarId</th>
+                </tr>
+              </thead>
+              <tbody>
+              {this.state.cars.map(item => (
+                <tr key={item.plate}>
+                  <td>{item.plate}</td>
+                </tr>
+              ))}
+              </tbody>
+          </Table>
+        </CardBody>
+      </Card>
+
+
+
+          );
   }
 
   componentDidMount() {

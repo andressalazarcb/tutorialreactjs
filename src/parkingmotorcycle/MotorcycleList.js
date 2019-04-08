@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import * as Constant from '../Constant'
+import * as Constant from '../Constant';
+import { Table, Card, Button, CardHeader, CardFooter, CardBody, CardTitle, CardText } from 'reactstrap';
 
 class MotorcycleList extends Component {
 
@@ -15,12 +16,13 @@ class MotorcycleList extends Component {
 
   render() {
     return (
-      <div>
-        <div>
-        <table width="100%">
+      <Card>
+      <CardHeader tag="h3">Motorcycles that are parking</CardHeader>
+      <CardBody>
+        <Table striped>
             <thead>
               <tr>
-                <th>MotorcycleId</th>
+                <th>Motorcycle Id</th>
               </tr>
             </thead>
             <tbody>
@@ -30,10 +32,9 @@ class MotorcycleList extends Component {
               </tr>
             ))}
             </tbody>
-        </table>
-
-          </div>
-      </div>);
+        </Table>
+      </CardBody>
+    </Card>);
   }
 
   componentDidMount() {
