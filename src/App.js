@@ -1,27 +1,28 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
-import VehicleDetail from './VehicleDetail'
+import TRMView from './trm/TRMView'
+import CarList from './parkingcar/CarList'
+import MotorcycleList from './parkingmotorcycle/MotorcycleList'
+import Wrap from './parking/Wrap'
+import VehicleParking from './parking/VehicleParking'
+
 
 class App extends Component {
+
   constructor(props) {
       super(props);
-      this.state = {
-        list: [
-          "Go to the store",
-          "Wash the dishes",
-          "Learn some code"
-        ]
-      }
     }
 
   render() {
     return (
-      <div>
-        <VehicleDetail list = {this.state.list} />
-      </div>
-
-    );
+        <div>
+          <TRMView />
+          <CarList />
+          <MotorcycleList />
+          <Wrap />
+          <VehicleParking />
+        </div>
+      );
   }
 
 }
