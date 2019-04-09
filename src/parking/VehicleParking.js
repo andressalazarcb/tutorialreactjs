@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import * as Constant from '../Constant';
 import VehicleDetail from './VehicleDetail';
+import { Button, Input, Label, Form, Card, CardHeader, CardBody, CardDeck } from 'reactstrap';
 
 class VehicleParking extends Component {
 
@@ -27,41 +28,40 @@ class VehicleParking extends Component {
 
 
   render() {
+    var style = this.state.vehicleType === 'Moto' &&  this.state.action !== 'GetOut'? {}:{display:'none'};
     return (
-      <div>
-      <form onSubmit={this.handleSubmit}>
-        <label>
-          Name:
-          <input name="plate" type="text" onChange={this.handleChange} />
-        </label>
-        <label>
-          Pick your vehicle type:
-          <select name="vehicleType" onChange={this.handleChange}>
-          {Constant.TYPES.map(item => (
-            <option key={item}>
-              {item}
-            </option>
-          ))}
-          </select>
-        </label>
-        <label>
-          cc:
-          <input name="cc" type="text" onChange={this.handleChange} />
-        </label>
-        <label>
-          Pick your action:
-          <select name="action" onChange={this.handleChange}>
-          {Constant.ACTIONS.map(item => (
-            <option key={item}>
-              {item}
-            </option>
-          ))}
-          </select>
-        </label>
-        <input type="submit" value="Submit" />
-      </form>
-      <VehicleDetail vehicle = {this.state.vehicle} />
-      </div>
+      <CardDeck>
+        <Card>
+          <CardHeader tag="h3">Parking</CardHeader>
+          <CardBody>
+             <Form onSubmit={this.handleSubmit}>
+                 <Label for="plate">Plate:</Label>
+                 <Input name="plate" id="parking_plate" onChange={this.handleChange} placeholder="Insert a plate" />
+                 <Label for="vehicleType">Vehicle Type:</Label>
+                 <Input name="vehicleType" type="select" id="parking_vehicleType" onChange={this.handleChange}>
+                    {Constant.TYPES.map(item => (
+                    <option key={item}>
+                      {item}
+                    </option>
+                    ))}
+                </Input>
+                <Label for="cc" style={style}>CC:</Label>
+                <Input name="cc" id="parking_cc" onChange={this.handleChange} placeholder="Insert a CC" style={style}/>
+                <Label for="action">Pick your action:</Label>
+                <Input name="action" type="select" id="parking_action" onChange={this.handleChange}>
+                  {Constant.ACTIONS.map(item => (
+                    <option key={item}>
+                      {item}
+                    </option>
+                  ))}
+               </Input>
+               <br/>
+               <Button id="parking_submit" style={{float: 'right'}} color="primary">Submit</Button>
+             </Form>
+          </CardBody>
+        </Card>
+        <VehicleDetail vehicle = {this.state.vehicle} />
+      </CardDeck>
     );
   }
 
@@ -71,7 +71,6 @@ class VehicleParking extends Component {
   }
 
   handleSubmit(event) {
-    console.log(this.state.action);
     var json = null;
     if(this.state.action === 'GetIn'){
       if (this.state.vehicleType === 'Carro') {
@@ -122,19 +121,21 @@ class VehicleParking extends Component {
           if(res.status === 201 || res.status === 200){
             res.json().then(
               (result) => {
+                var msg = this.state.action + " : " +this.state.vehicleType + " : " +this.state.plate;
+                this.props.noti(msg, Constant.TYPE_NOTIFICATION_SUCCESS);
                 this.handleToUpdate(result.content)
-              },
-              (error) => {
-                this.setState({
-                  isLoaded: true,
-                  error
-                });
               }
             )
           }else{
+            res.json().then(
+              (result) => {
+                var msg = result.content;
+                this.props.noti(msg, Constant.TYPE_NOTIFICATION_WARNING);
+              }
+            );
             this.handleToUpdate(null)
           }
-        });
+        }).catch(err => {this.props.noti('Service is not avalible at the moment', Constant.TYPE_NOTIFICATION_DANGER);});
   }
 
 

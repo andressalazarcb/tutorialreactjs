@@ -16,27 +16,29 @@ class TRMView extends Component {
   render() {
     return (
       <div>
-        <p className="text-info">La TRM de Hoy es: $ {this.state.trm} COP</p>
+        <p className="text-info">Current TRM is: $ {this.state.trm} COP</p>
       </div>);
   }
 
   componentDidMount() {
     fetch(Constant.SUPERFINANCIERARESTURL_RESOURCETRM)
-      .then(res => res.json())
-      .then(
-        (result) => {
+      .then(res => {
+        if(res.status === 200){
+          res.json().then(
+            (result) => {
+              this.setState({
+                isLoaded: true,
+                trm: result.value
+              });
+            }
+          )
+        }else{
           this.setState({
             isLoaded: true,
-            trm: result.value
-          });
-        },
-        (error) => {
-          this.setState({
-            isLoaded: true,
-            error
+            trm: null
           });
         }
-      )
+      });
   }
 
 }

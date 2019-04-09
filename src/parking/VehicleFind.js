@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import * as Constant from '../Constant';
-import { Button, Input, Label, Form } from 'reactstrap';
+import { Button, Input, Label, Form, Card, CardHeader, CardBody } from 'reactstrap';
 
 class VehicleFind extends Component {
 
@@ -20,19 +20,17 @@ class VehicleFind extends Component {
 
   render() {
     return (
-      <Form onSubmit={this.handleSubmit}>
-        <Label for="plate">Plate:</Label>
-        <Input name="plate" id="plate" onChange={this.handleChange} placeholder="Insert a plate" />
-        <Label for="vehicleType">Vehicle Type:</Label>
-        <Input type="select" name="vehicleType" id="vehicleType">
-          {Constant.TYPES.map(item => (
-            <option key={item}>
-              {item}
-            </option>
-          ))}
-        </Input>
-        <Button>Submit</Button>
-      </Form>
+      <Card>
+        <CardHeader tag="h3">Search Vehicle</CardHeader>
+        <CardBody>
+			     <Form onSubmit={this.handleSubmit}>
+				      <Label for="plate">Plate:</Label>
+		          <Input name="plate" id="find_plate" onChange={this.handleChange} placeholder="Insert a plate" />
+              <br/>
+              <Button id="find_submit" style={{float: 'right'}} color="primary">Submit</Button>
+           </Form>
+        </CardBody>
+      </Card>
     );
   }
 
@@ -41,33 +39,34 @@ class VehicleFind extends Component {
   }
 
   handleSubmit(event) {
-    if (this.state.vehicleType === 'Carro') {
-      this.fetchQuotes(Constant.PARKINGRESTURL_RESOURCECAR, this.state.plate)
-    }else if (this.state.vehicleType === 'Moto') {
-      this.fetchQuotes(Constant.PARKINGRESTURL_RESOURCEMOTORCYCLE, this.state.plate)
-    }
+    this.fetchQuotes(Constant.PARKINGRESTURL_RESOURCECAR, this.state.plate)
     event.preventDefault();
   }
 
   fetchQuotes = (url, plate) => {
-    fetch(url+plate)
-    .then(res => {
-      if(res.status === 200){
-        res.json().then(
-          (result) => {
-            this.props.handleToUpdate(result.content)
-          },
-          (error) => {
-            this.setState({
-              isLoaded: true,
-              error
-            });
-          }
-        )
-      }else{
-        this.props.handleToUpdate(null)
-      }
-    });
+    if(plate){
+      fetch(url+plate)
+      .then(res => {
+        if(res.status === 200){
+          res.json().then(
+            (result) => {
+              var msg = 'vehicle found!';
+              this.props.noti(msg, Constant.TYPE_NOTIFICATION_SUCCESS);
+              this.props.handleToUpdate(result.content)
+            }
+          )
+        }else{
+          var msg = 'vehicle not found!';
+          this.props.noti(msg, Constant.TYPE_NOTIFICATION_WARNING);
+          this.props.handleToUpdate(null)
+        }
+      }).catch(err => {this.props.noti('Service is not avalible at the moment', Constant.TYPE_NOTIFICATION_DANGER);});
+    }else{
+      var msg = 'vehicle not found!';
+      this.props.noti(msg, Constant.TYPE_NOTIFICATION_WARNING);
+      this.props.handleToUpdate(null)
+    }
+
   }
 
 }

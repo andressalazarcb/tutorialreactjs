@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import VehicleFind from './VehicleFind';
 import VehicleDetail from './VehicleDetail';
+import {  CardDeck } from 'reactstrap';
 
 
 class Wrap extends Component {
@@ -24,10 +25,10 @@ class Wrap extends Component {
 
   render() {
     return (
-      <div>
-        <VehicleFind handleToUpdate = {this.handleToUpdate} />
+      <CardDeck>
+        <VehicleFind handleToUpdate = {this.handleToUpdate} noti = {this.props.noti} />
         <VehicleDetail vehicle = {this.state.vehicle} />
-      </div>
+      </CardDeck>
     );
   }
 
