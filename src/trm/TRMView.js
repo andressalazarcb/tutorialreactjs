@@ -16,7 +16,7 @@ class TRMView extends Component {
   render() {
     return (
       <div>
-        <p className="text-info">Current TRM is: $ {this.state.trm} COP</p>
+        <p className="text-info">Current TRM is: {new Intl.NumberFormat('co-CO', { style: 'currency', currency: 'COP' }).format(this.state.trm)} </p>
       </div>);
   }
 

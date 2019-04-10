@@ -27,7 +27,7 @@ class App extends Component {
       container: "top-right",
       animationIn: ["animated", "fadeIn"],
       animationOut: ["animated", "fadeOut"],
-      dismiss: { duration: 5000 },
+      dismiss: { duration: 15000 },
       dismissable: { click: true }
     });
   }
