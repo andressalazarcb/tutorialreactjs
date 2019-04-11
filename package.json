@@ -26,6 +26,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "jasmine-spec-reporter": "^4.2.1",
     "protractor": "^5.4.2"
   }
 }

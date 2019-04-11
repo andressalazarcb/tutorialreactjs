@@ -1,3 +1,5 @@
+
+
 exports.config = {
   seleniumAddress: 'http://localhost:4444/wd/hub',
   specs: ['test.js'],
@@ -6,8 +8,9 @@ exports.config = {
    },
    baseUrl: 'http://localhost:3000',
    framework: 'jasmine',
-   onPrepare: function() {
-     browser.ignoreSynchronization = true;
-   }
+   onPrepare: function(){
+    
+    browser.ignoreSynchronization = true;
+  }
 
 }
