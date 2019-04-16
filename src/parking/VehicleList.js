@@ -58,7 +58,7 @@ class VehicleList extends Component {
           (result) => {
             this.setState({
               isLoaded: true,
-              vehicles: result.content
+              vehicles: result
             });
           }
         )

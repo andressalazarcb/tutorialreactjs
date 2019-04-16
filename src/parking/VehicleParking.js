@@ -123,13 +123,13 @@ class VehicleParking extends Component {
               (result) => {
                 var msg = this.state.action + " : " +this.state.vehicleType + " : " +this.state.plate;
                 this.props.noti(msg, Constant.TYPE_NOTIFICATION_SUCCESS);
-                this.handleToUpdate(result.content)
+                this.handleToUpdate(result)
               }
             )
           }else{
             res.json().then(
               (result) => {
-                var msg = result.content;
+                var msg = result;
                 this.props.noti(msg, Constant.TYPE_NOTIFICATION_WARNING);
               }
             );

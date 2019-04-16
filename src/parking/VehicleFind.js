@@ -52,7 +52,7 @@ class VehicleFind extends Component {
             (result) => {
               var msg = 'vehicle found!';
               this.props.noti(msg, Constant.TYPE_NOTIFICATION_SUCCESS);
-              this.props.handleToUpdate(result.content)
+              this.props.handleToUpdate(result)
             }
           )
         }else{

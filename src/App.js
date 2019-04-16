@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './App.css';
-import TRMView from './trm/TRMView'
 import VehicleList from './parking/VehicleList'
 import Wrap from './parking/Wrap'
 import VehicleParking from './parking/VehicleParking'
@@ -35,7 +34,6 @@ class App extends Component {
   render() {
     return (
         <div>
-          <TRMView />
           <VehicleParking  noti = {this.addNotification}/>
           <br/>
           <Wrap noti = {this.addNotification} />
