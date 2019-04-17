@@ -14,6 +14,8 @@ RUN npm run build
 
 FROM nginx:1.15
 
+RUN mkdir /data && mkdir /data/nginx && mkdir /data/nginx/cache
+
 COPY --from=build-stage /usr/src/app/build/ /var/www/my-app/
 
 COPY nginx.conf /etc/nginx/nginx.conf
